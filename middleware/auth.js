@@ -1,4 +1,4 @@
-const ErrorHander = require("../utils/errorhander");
+const ErrorHander = require("../utils/errorhandler");
 const catchAsyncErrors = require("./catchAsyncErrors");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
@@ -18,7 +18,9 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.authorizeRoles = (...roles) => {
-  return (req, res, next) => {
+
+  return (req, res, next) => 
+  { // roles are already set in req.user
     if (!roles.includes(req.user.role)) {
       return next(
         new ErrorHander(
